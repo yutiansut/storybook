@@ -10,6 +10,9 @@ module.exports = {
   parserOptions: {
     sourceType: 'module',
   },
+  globals: {
+    customElements: true,
+  },
   env: {
     es6: true,
     node: true,

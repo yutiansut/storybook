@@ -3,7 +3,7 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-  entry: './src/polymer-playground-app.html',
+  entry: './src/polymer-playground-app.js',
   output: {
     path: path.resolve(__dirname, './dist'),
     filename: '[name].[chunkhash:8].js',
@@ -11,9 +11,8 @@ module.exports = {
   module: {
     loaders: [
       {
-        test: /\.html$/,
-        exclude: require.resolve('./index.html'),
-        use: [{ loader: 'babel-loader' }, { loader: 'polymer-webpack-loader' }],
+        test: /\.js$/,
+        use: [{ loader: 'babel-loader' }],
       },
     ],
   },
@@ -23,7 +22,6 @@ module.exports = {
     }),
     new CopyWebpackPlugin([
       { from: 'node_modules/@webcomponents/webcomponentsjs/webcomponents*.js', flatten: true },
-      { from: 'node_modules/@webcomponents/webcomponentsjs/custom-elements-es5-adapter.js' },
     ]),
   ],
   devServer: { historyApiFallback: true },
