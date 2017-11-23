@@ -24,7 +24,9 @@ import { AppComponent } from '../app/app.component';
 storiesOf('Welcome', module)
   .add('to Storybook', () => ({
     component: Welcome,
-    props: {}
+    props: {
+      showApp: linkTo('Button')
+    }
   }))
 
 storiesOf('Button', module)
@@ -101,7 +103,8 @@ storiesOf('Addon Notes', module)
     })(() => ({
       component: Button,
       props: {
-        text: 'Notes with HTML'
+        text: 'Notes with HTML',
+        onClick: () => {}
       }
     }))
   );
