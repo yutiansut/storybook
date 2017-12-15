@@ -1,4 +1,7 @@
 {
+  "name": "storybook.js.org",
+  "version": "1.0.0",
+  "description": "storybook.js.org documentation",
   "scripts": {
     "examples": "docusaurus-examples",
     "start": "docusaurus-start",
