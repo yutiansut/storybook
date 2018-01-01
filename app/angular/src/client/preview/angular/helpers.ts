@@ -1,3 +1,4 @@
+import * as _ from 'lodash';
 import {
   Type,
   enableProdMode,
@@ -6,6 +7,8 @@ import {
   NgModuleRef
 } from '@angular/core';
 import {FormsModule} from '@angular/forms'
+import {CommonModule} from '@angular/common'
+import {DynamicComponentModule} from 'ng-dynamic';
 
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { BrowserModule } from '@angular/platform-browser';
@@ -113,30 +116,48 @@ const getAnnotatedComponent = (meta: NgModule,
 };
 
 const getModule = (declarations: Array<Type<any> | any[]>,
-entryComponents: Array<Type<any> | any[]>,
-bootstrap: Array<Type<any> | any[]>,
-data: NgProvidedData,
-moduleMetadata: NgModuleMetadata = {
-  imports: [],
-  schemas: [],
-  declarations: [],
-  providers: []
-}): IModule => {
-  const moduleMeta = new NgModule({
-    declarations: [...declarations, ...moduleMetadata.declarations],
-    imports: [BrowserModule, FormsModule, ...moduleMetadata.imports],
-    providers: [{ provide: STORY, useValue: Object.assign({}, data) }, ...moduleMetadata.providers],
+  entryComponents: Array<Type<any> | any[]>,
+  bootstrap: Array<Type<any> | any[]>,
+  data: NgProvidedData,
+  moduleMetadata: NgModuleMetadata = {}
+): any => {
+  const schemas = moduleMetadata.schemas || [];
+  const imports = moduleMetadata.imports || [];
+  const providers = moduleMetadata.providers || [];
+  const _declarations = moduleMetadata.declarations || [];
+  
+  @NgModule({
+    imports: [
+      FormsModule,
+      CommonModule,
+      BrowserModule,
+      DynamicComponentModule.forRoot({
+        imports: [
+          ...imports,
+          FormsModule,
+          CommonModule,
+          BrowserModule
+        ],
+        declarations: [..._declarations],
+        providers: [...providers],
+        schemas: [...schemas]
+      })
+    ],
+    providers: [{
+      provide: STORY,
+      useValue: Object.assign({}, data)
+    }, ...providers],
+    declarations: [...declarations, ..._declarations],
     entryComponents: [...entryComponents],
-    schemas: [...moduleMetadata.schemas],
+    schemas: [...schemas],
     bootstrap: [...bootstrap]
-  });
-
-  const NewModule: any = function NewModule() {};
-  (<IModule>NewModule).annotations = [moduleMeta];
+  })
+  class NewModule {}
+  
   return NewModule;
 };
 
-const initModule = (currentStory: IGetStoryWithContext, context: IContext, reRender: boolean): IModule => {
+const getModuleWithComponent = (story: NgStory) => {
   const {
     component,
     componentMeta,
@@ -144,7 +165,7 @@ const initModule = (currentStory: IGetStoryWithContext, context: IContext, reRen
     propsMeta,
     params,
     moduleMeta
-  } = getComponentMetadata(currentStory(context));
+  } = getComponentMetadata(story);
 
   if (!componentMeta) {
     throw new Error('No component metadata available');
@@ -157,7 +178,7 @@ const initModule = (currentStory: IGetStoryWithContext, context: IContext, reRen
     [...params, ...moduleMeta.providers.map(provider => [provider])]
   );
 
-  const story = {
+  const data = {
     component: AnnotatedComponent,
     props,
     propsMeta
@@ -167,9 +188,29 @@ const initModule = (currentStory: IGetStoryWithContext, context: IContext, reRen
     [AppComponent, AnnotatedComponent],
     [AnnotatedComponent],
     [AppComponent],
-    story,
+    data,
     moduleMeta
   );
+};
+
+const getModuleWithTemplate = (story: NgStory) => {
+  return getModule(
+    [AppComponent],
+    [],
+    [AppComponent],
+    story,
+    story.moduleMetadata
+  );
+};
+
+const initModule = (currentStory: IGetStoryWithContext, context: IContext, reRender: boolean): IModule => {
+  let story = currentStory(context);
+
+  if (_.isString(story.component)) {
+    return getModuleWithTemplate(story);
+  }
+
+  return getModuleWithComponent(story);
 };
 
 const draw = (newModule: IModule, reRender: boolean = true): void => {

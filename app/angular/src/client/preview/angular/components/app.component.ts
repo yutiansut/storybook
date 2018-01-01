@@ -20,18 +20,28 @@ import { NgStory, ICollection } from '../types';
 
 @Component({
   selector: 'app-root',
-  template: '<ng-template #target></ng-template>'
+  template: `
+    <ng-template #target></ng-template>
+    <div *dynamicComponent="template; context: data.props;"></div>
+`
 })
 export class AppComponent implements AfterViewInit, OnDestroy {
   @ViewChild('target', { read: ViewContainerRef })
   target: ViewContainerRef;
+
   constructor(
     private cfr: ComponentFactoryResolver,
     @Inject(STORY) private data: NgStory
   ) {}
 
+  get template(): string {
+    return _.isString(this.data.component) ? this.data.component : null;
+  }
+
   ngAfterViewInit(): void {
-    this.putInMyHtml();
+    if (!this.template) {
+      this.putInMyHtml();
+    }
   }
 
   ngOnDestroy(): void {
