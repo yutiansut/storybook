@@ -1,4 +1,3 @@
-import * as _ from 'lodash';
 import {
   Type,
   enableProdMode,
@@ -179,20 +178,41 @@ const getModuleWithComponent = (story: NgStory) => {
   );
 };
 
-const getModuleWithTemplate = (story: NgStory) => {
+const DYNAMIC_COMPONENT_SELECTOR = 'storybook-dynamic-component';
+const createComponentFromTemplate = (template: string, selector?: string): Type<any> => {
+  const metadata = new Component({
+    selector: selector || DYNAMIC_COMPONENT_SELECTOR,
+    template: template,
+  });
+  const cmpClass = class DynamicComponent {};
+  return Component(metadata)(cmpClass);
+};
+
+const getModuleWithTemplate = (story: NgStory): any => {
+  const cpm = createComponentFromTemplate(story.component);
+  const propsMeta = Object.keys(story.props).reduce((acc: any, name: string) => {
+    // adding here collection of fake propsMeta
+    return acc[name] = true;
+  }, {});
+  const data = {
+    component: cpm,
+    props: story.props,
+    propsMeta
+  };
+  
   return getModule(
+    [AppComponent, cpm],
+    [cpm],
     [AppComponent],
-    [],
-    [AppComponent],
-    story,
+    data,
     story.moduleMetadata
   );
 };
 
 const initModule = (currentStory: IGetStoryWithContext, context: IContext, reRender: boolean): IModule => {
-  let story = currentStory(context);
+  const story = currentStory(context);
 
-  if (_.isString(story.component)) {
+  if (typeof story.component === 'string') {
     return getModuleWithTemplate(story);
   }
 

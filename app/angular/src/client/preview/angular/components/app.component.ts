@@ -38,19 +38,11 @@ export class AppComponent implements AfterViewInit, OnDestroy {
   }
 
   ngAfterViewInit(): void {
-    if (this.template) {
-      this.compileTemplate();
-    } else {
       this.renderComponent();
-    }
   }
 
   ngOnDestroy(): void {
     this.target.clear();
-  }
-  
-  private compileTemplate(): void {
-    // todo
   }
 
   private renderComponent(): void {
