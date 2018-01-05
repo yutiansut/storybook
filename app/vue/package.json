@@ -27,9 +27,10 @@
     "@storybook/addon-links": "^3.3.3",
     "@storybook/addons": "^3.3.3",
     "@storybook/channel-postmessage": "^3.3.3",
+    "@storybook/core": "^3.3.3",
     "@storybook/ui": "^3.3.3",
     "airbnb-js-shims": "^1.4.0",
-    "autoprefixer": "^7.2.3",
+    "autoprefixer": "^7.2.4",
     "babel-loader": "^7.1.2",
     "babel-plugin-react-docgen": "^1.8.0",
     "babel-plugin-transform-regenerator": "^6.26.0",
@@ -57,7 +58,7 @@
     "json-stringify-safe": "^5.0.1",
     "json5": "^0.5.1",
     "postcss-flexbugs-fixes": "^3.2.0",
-    "postcss-loader": "^2.0.9",
+    "postcss-loader": "^2.0.10",
     "prop-types": "^15.6.0",
     "qs": "^6.5.1",
     "react": "^16.2.0",
@@ -78,7 +79,7 @@
     "webpack-hot-middleware": "^2.21.0"
   },
   "devDependencies": {
-    "nodemon": "^1.14.6",
+    "nodemon": "^1.14.7",
     "vue": "^2.5.13",
     "vue-loader": "^13.6.2",
     "vue-template-compiler": "^2.5.13"
