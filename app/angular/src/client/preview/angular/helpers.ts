@@ -7,8 +7,6 @@ import {
   NgModuleRef
 } from '@angular/core';
 import {FormsModule} from '@angular/forms'
-import {CommonModule} from '@angular/common'
-import {DynamicComponentModule} from 'ng-dynamic';
 
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { BrowserModule } from '@angular/platform-browser';
@@ -121,31 +119,20 @@ const getModule = (declarations: Array<Type<any> | any[]>,
   data: NgProvidedData,
   moduleMetadata: NgModuleMetadata = {}
 ): any => {
-  const schemas = moduleMetadata.schemas || [];
-  const imports = moduleMetadata.imports || [];
-  const providers = moduleMetadata.providers || [];
-  const _declarations = moduleMetadata.declarations || [];
-  
+ const imports = moduleMetadata.imports || [];
+ const schemas = moduleMetadata.schemas || [];
+ const _declarations = moduleMetadata.declarations || [];
+ const providers = moduleMetadata.providers || [];
+
   @NgModule({
     imports: [
+      ...imports,
       FormsModule,
-      CommonModule,
       BrowserModule,
-      DynamicComponentModule.forRoot({
-        imports: [
-          ...imports,
-          FormsModule,
-          CommonModule,
-          BrowserModule
-        ],
-        declarations: [..._declarations],
-        providers: [...providers],
-        schemas: [...schemas]
-      })
     ],
     providers: [{
-      provide: STORY,
-      useValue: Object.assign({}, data)
+        provide: STORY,
+        useValue: Object.assign({}, data)
     }, ...providers],
     declarations: [...declarations, ..._declarations],
     entryComponents: [...entryComponents],
@@ -153,7 +140,6 @@ const getModule = (declarations: Array<Type<any> | any[]>,
     bootstrap: [...bootstrap]
   })
   class NewModule {}
-  
   return NewModule;
 };
 

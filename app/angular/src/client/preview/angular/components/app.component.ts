@@ -22,7 +22,6 @@ import { NgStory, ICollection } from '../types';
   selector: 'app-root',
   template: `
     <ng-template #target></ng-template>
-    <div *dynamicComponent="template; context: data.props;"></div>
 `
 })
 export class AppComponent implements AfterViewInit, OnDestroy {
@@ -39,16 +38,22 @@ export class AppComponent implements AfterViewInit, OnDestroy {
   }
 
   ngAfterViewInit(): void {
-    if (!this.template) {
-      this.putInMyHtml();
+    if (this.template) {
+      this.compileTemplate();
+    } else {
+      this.renderComponent();
     }
   }
 
   ngOnDestroy(): void {
     this.target.clear();
   }
+  
+  private compileTemplate(): void {
+    // todo
+  }
 
-  private putInMyHtml(): void {
+  private renderComponent(): void {
     this.target.clear();
     const compFactory = this.cfr.resolveComponentFactory(this.data.component);
     const instance = this.target.createComponent(compFactory).instance;
