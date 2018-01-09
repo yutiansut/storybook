@@ -1,6 +1,6 @@
 import { Component, Inject } from '@angular/core';
-import { STORY } from '../app.token';
-import { NgError } from '../types';
+import { STORY } from '@storybook/ng-accessories/dist/app.token';
+import { NgError } from '@storybook/ng-accessories/dist/types';
 
 @Component({
   selector: 'storybook-dynamic-app-root',

@@ -1,7 +1,12 @@
 /* eslint no-underscore-dangle: 0 */
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { Component, SimpleChange, ChangeDetectorRef } from '@angular/core';
-import { getParameters, getAnnotations, getPropMetadata } from './utils';
+// eslint-disable-next-line import/no-extraneous-dependencies
+import {
+  getParameters,
+  getAnnotations,
+  getPropMetadata,
+} from '@storybook/ng-accessories/dist/utils.ts';
 
 const getComponentMetadata = ({ component, props = {}, moduleMetadata = {} }) => {
   if (!component || typeof component !== 'function') throw new Error('No valid component provided');

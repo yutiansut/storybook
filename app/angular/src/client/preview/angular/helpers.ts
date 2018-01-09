@@ -1,13 +1,14 @@
-import { Type, enableProdMode, NgModule, Component, NgModuleRef } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { Type, enableProdMode, NgModuleRef } from '@angular/core';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
-import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent } from './components/app.component';
 import { ErrorComponent } from './components/error.component';
 import { NoPreviewComponent } from './components/no-preview.component';
-import { STORY } from './app.token';
-import { getAnnotations, getParameters, getPropMetadata } from './utils';
-import { NgModuleMetadata, NgStory, IGetStoryWithContext, IContext, NgProvidedData } from './types';
+import { IGetStoryWithContext, IContext } from '@storybook/ng-accessories/dist/types';
+import {
+  getComponentMetadata,
+  getAnnotatedComponent,
+  getModule,
+} from '@storybook/ng-accessories/dist/dynamic';
 
 let platform: any = null;
 let promises: Promise<NgModuleRef<any>>[] = [];
@@ -17,11 +18,6 @@ type IRenderErrorFn = (error: Error) => void;
 
 interface IModule extends Type<any> {
   annotations: any[];
-}
-interface IComponent extends Type<any> {
-  annotations: any[];
-  parameters: any[];
-  propsMetadata: any[];
 }
 
 // Taken from https://davidwalsh.name/javascript-debounce-function
@@ -48,90 +44,6 @@ const debounce = (
       func.apply(context, args);
     }
   };
-};
-
-const getComponentMetadata = ({
-  component,
-  props = {},
-  propsMeta = {},
-  moduleMetadata = {
-    imports: [],
-    schemas: [],
-    declarations: [],
-    providers: [],
-  },
-}: NgStory) => {
-  if (!component || typeof component !== 'function') {
-    throw new Error('No valid component provided');
-  }
-
-  const componentMetadata = getAnnotations(component)[0] || {};
-  const propsMetadata = getPropMetadata(component);
-  const paramsMetadata = getParameters(component);
-
-  Object.keys(propsMeta).map(key => {
-    (<any>propsMetadata)[key] = (<any>propsMeta)[key];
-  });
-
-  const { imports = [], schemas = [], declarations = [], providers = [] } = moduleMetadata;
-
-  return {
-    component,
-    props,
-    componentMeta: componentMetadata,
-    propsMeta: propsMetadata,
-    params: paramsMetadata,
-    moduleMeta: {
-      imports,
-      schemas,
-      declarations,
-      providers,
-    },
-  };
-};
-
-const getAnnotatedComponent = (
-  meta: NgModule,
-  component: any,
-  propsMeta: { [p: string]: any },
-  params: any[]
-): IComponent => {
-  const NewComponent: any = function(...args: any[]) {
-    component.call(this, ...args);
-  };
-
-  NewComponent.prototype = Object.create(component.prototype);
-  NewComponent.annotations = [new Component(meta)];
-  NewComponent.parameters = params;
-  NewComponent.propsMetadata = propsMeta;
-
-  return NewComponent;
-};
-
-const getModule = (
-  declarations: Array<Type<any> | any[]>,
-  entryComponents: Array<Type<any> | any[]>,
-  bootstrap: Array<Type<any> | any[]>,
-  data: NgProvidedData,
-  moduleMetadata: NgModuleMetadata = {
-    imports: [],
-    schemas: [],
-    declarations: [],
-    providers: [],
-  }
-): IModule => {
-  const moduleMeta = new NgModule({
-    declarations: [...declarations, ...moduleMetadata.declarations],
-    imports: [BrowserModule, FormsModule, ...moduleMetadata.imports],
-    providers: [{ provide: STORY, useValue: Object.assign({}, data) }, ...moduleMetadata.providers],
-    entryComponents: [...entryComponents],
-    schemas: [...moduleMetadata.schemas],
-    bootstrap: [...bootstrap],
-  });
-
-  const NewModule: any = function() {};
-  (<IModule>NewModule).annotations = [moduleMeta];
-  return NewModule;
 };
 
 const initModule = (

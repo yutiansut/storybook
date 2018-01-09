@@ -1,4 +1,4 @@
-import { NgModuleMetadata, ICollection } from './dist/client/preview/angular/types';
+import { NgModuleMetadata, ICollection } from '@storybook/ng-accessories/dist/types';
 
 export interface IStorybookStory {
   name: string;

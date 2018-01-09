@@ -28,6 +28,7 @@
     "@storybook/addons": "^3.4.0-alpha.0",
     "@storybook/channel-postmessage": "^3.4.0-alpha.0",
     "@storybook/core": "^3.4.0-alpha.0",
+    "@storybook/ng-accessories": "^3.4.0-alpha.0",
     "@storybook/ui": "^3.4.0-alpha.0",
     "airbnb-js-shims": "^1.1.1",
     "angular2-template-loader": "^0.6.2",

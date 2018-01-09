@@ -1,0 +1,26 @@
+{
+  "name": "@storybook/ng-accessories",
+  "version": "3.4.0-alpha.0",
+  "description": "Storybook accessories for common angular stuff",
+  "keywords": [
+    "storybook"
+  ],
+  "homepage": "https://github.com/storybooks/storybook/tree/master/lib/ng-accessories",
+  "bugs": {
+    "url": "https://github.com/storybooks/storybook/issues"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/storybooks/storybook.git"
+  },
+  "scripts": {
+    "prepare": "node ../../scripts/prepare.js"
+  },
+  "peerDependencies": {
+    "@angular/common": ">=4.0.0",
+    "@angular/compiler": ">=4.0.0",
+    "@angular/core": ">=4.0.0",
+    "@angular/platform-browser": ">=4.0.0"
+  }
+}
