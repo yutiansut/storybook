@@ -18,25 +18,18 @@ const styles = {
 };
 
 class SelectType extends React.Component {
-  _makeOpt(key, val) {
-    const opts = {
-      key,
-      value: key,
-    };
-
-    return <option {...opts}>{val}</option>;
+  _makeOpt(key) {
+    return (
+      <option key={key} value={key}>
+        {key}
+      </option>
+    );
   }
   _options(values) {
-    let data = [];
-    if (Array.isArray(values)) {
-      data = values.map(val => this._makeOpt(val, val));
-    } else {
-      data = Object.keys(values).map(key => this._makeOpt(key, values[key]));
-    }
-
-    return data;
+    return Object.keys(values).map(key => this._makeOpt(key));
   }
   render() {
+    debugger;
     const { knob, onChange } = this.props;
 
     return (
@@ -63,7 +56,7 @@ SelectType.defaultProps = {
 SelectType.propTypes = {
   knob: PropTypes.shape({
     name: PropTypes.string,
-    value: PropTypes.string,
+    value: PropTypes.any,
   }),
   onChange: PropTypes.func,
 };

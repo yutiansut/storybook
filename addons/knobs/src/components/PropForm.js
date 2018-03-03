@@ -27,6 +27,7 @@ export default class propForm extends React.Component {
 
   onFieldChange(name, type, value) {
     const change = { name, type, value };
+    console.log('onFieldChange', { name, type, value });
     this.props.onFieldChange(change);
   }
 

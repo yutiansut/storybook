@@ -41,11 +41,16 @@ export default class WrapStory extends React.Component {
   }
 
   knobChanged(change) {
-    const { name, value } = change;
+    const { name, type, value } = change;
     const { knobStore, storyFn, context } = this.props;
     // Update the related knob and it's value.
     const knobOptions = knobStore.get(name);
-    knobOptions.value = value;
+    if (type === 'select') {
+      console.log({ change, props: this.props, knobOptions });
+      knobOptions.value = knobOptions.options[value];
+    } else {
+      knobOptions.value = value;
+    }
     knobStore.markAllUnused();
     this.setState({ storyContent: storyFn(context) });
   }

@@ -45,8 +45,24 @@ export function object(name, value) {
   return manager.knob(name, { type: 'object', value });
 }
 
+function makeSelectDisplay(value, fallback) {
+  if (typeof value === 'object') {
+    const str = value.toString();
+    if (str === '[object Object]') {
+      return fallback;
+    }
+  }
+  return value;
+}
+
 export function select(name, options, value) {
-  return manager.knob(name, { type: 'select', options, value });
+  const data = options;
+  if (Array.isArray(options)) {
+    options.forEach((option, i) => {
+      data[makeSelectDisplay(option, `${name} ${i}`)] = option;
+    });
+  }
+  return manager.knob(name, { type: 'select', options, value: options[value] });
 }
 
 export function array(name, value, separator = ',') {

@@ -16,6 +16,7 @@ module.exports = {
     'jest/globals': true,
   },
   rules: {
+    'no-debugger': ignore,
     strict: [error, 'never'],
     'prettier/prettier': [
       warn,
