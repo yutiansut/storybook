@@ -20,7 +20,6 @@
     "@storybook/core": "4.0.0-alpha.1",
     "@storybook/node-logger": "4.0.0-alpha.1",
     "babel-runtime": "^6.26.0",
-    "glob": "^7.1.2",
     "global": "^4.3.2",
     "jest-image-snapshot": "^2.4.0",
     "jest-specific-snapshot": "^0.5.0",

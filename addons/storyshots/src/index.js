@@ -1,9 +1,7 @@
-import fs from 'fs';
-import glob from 'glob';
 import global, { describe, it } from 'global';
 import addons, { mockChannel } from '@storybook/addons';
 import loadFramework from './frameworkLoader';
-import { getPossibleStoriesFiles, getSnapshotFileName } from './utils';
+import { getSnapshotFileName } from './utils';
 import { imageSnapshot } from './test-body-image-snapshot';
 
 import {
@@ -92,15 +90,3 @@ export default function testStorySnapshots(options = {}) {
     });
   }
 }
-
-describe('Storyshots Integrity', () => {
-  test('Abandoned Storyshots', () => {
-    const storyshots = glob.sync('**/*.storyshot');
-
-    const abandonedStoryshots = storyshots.filter(fileName => {
-      const possibleStoriesFiles = getPossibleStoriesFiles(fileName);
-      return !possibleStoriesFiles.some(fs.existsSync);
-    });
-    expect(abandonedStoryshots).toHaveLength(0);
-  });
-});
