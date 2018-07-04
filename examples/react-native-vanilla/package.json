@@ -10,7 +10,7 @@
   "dependencies": {
     "prop-types": "^15.6.0",
     "react": "^16.2.0",
-    "react-native": "^0.51.0"
+    "react-native": "^0.56.0"
   },
   "devDependencies": {
     "babel-preset-react-native": "^4.0.0",
