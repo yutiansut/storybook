@@ -5,12 +5,15 @@
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start --config $PWD/rn-cli.config.js",
     "test": "jest",
-    "storybook": "storybook start -p 7007 --metro-config $PWD/rn-cli.config.js"
+    "storybook": "storybook start -p 7007 --metro-config $PWD/rn-cli.config.js",
+    "snyk-protect": "snyk protect",
+    "prepare": "npm run snyk-protect"
   },
   "dependencies": {
     "identity-obj-proxy": "^3.0.0",
-    "react": "^16.3.0-alpha.1",
-    "react-native": "0.54.2"
+    "react": "^16.3.0",
+    "react-native": "0.56.0",
+    "snyk": "^1.113.0"
   },
   "devDependencies": {
     "@types/jest": "^22.2.0",
@@ -65,5 +68,6 @@
       "<rootDir>/lib/"
     ],
     "cacheDirectory": ".jest/cache"
-  }
+  },
+  "snyk": true
 }
