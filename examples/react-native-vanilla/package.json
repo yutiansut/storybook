@@ -5,12 +5,15 @@
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js run-ios",
     "test": "jest",
-    "storybook": "storybook start -p 7007"
+    "storybook": "storybook start -p 7007",
+    "snyk-protect": "snyk protect",
+    "prepublish": "npm run snyk-protect"
   },
   "dependencies": {
     "prop-types": "^15.6.0",
     "react": "^16.2.0",
-    "react-native": "^0.51.0"
+    "react-native": "^0.59.0",
+    "snyk": "^1.156.0"
   },
   "devDependencies": {
     "babel-preset-react-native": "^4.0.0",
@@ -33,5 +36,6 @@
     "@storybook/react-native": "file:../../packs/storybook-react-native.tgz",
     "@storybook/ui": "file:../../packs/storybook-ui.tgz",
     "react-dom": "^16.2.0"
-  }
+  },
+  "snyk": true
 }
