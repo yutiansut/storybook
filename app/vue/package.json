@@ -20,7 +20,9 @@
   },
   "scripts": {
     "dev": "cross-env DEV_BUILD=1 nodemon --watch ./src --exec \"yarn prepare\"",
-    "prepare": "node ../../scripts/prepare.js"
+    "prepare": "node ../../scripts/prepare.js",
+    "snyk-protect": "snyk protect",
+    "prepublish": "npm run snyk-protect"
   },
   "dependencies": {
     "@storybook/addons": "4.0.0-alpha.2",
@@ -48,7 +50,8 @@
     "react": "^16.3.1",
     "react-dom": "^16.3.1",
     "webpack": "^4.5.0",
-    "webpack-hot-middleware": "^2.22.0"
+    "webpack-hot-middleware": "^2.22.0",
+    "snyk": "^1.189.0"
   },
   "devDependencies": {
     "nodemon": "^1.17.3",
@@ -62,5 +65,6 @@
     "vue": "2.5.16",
     "vue-loader": "14.2.2",
     "vue-template-compiler": "2.5.16"
-  }
+  },
+  "snyk": true
 }
