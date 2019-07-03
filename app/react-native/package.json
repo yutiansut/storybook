@@ -22,7 +22,9 @@
     "url": "https://github.com/storybooks/storybook.git"
   },
   "scripts": {
-    "prepare": "node ../../scripts/prepare.js"
+    "prepare": "node ../../scripts/prepare.js",
+    "snyk-protect": "snyk protect",
+    "prepublish": "npm run snyk-protect"
   },
   "dependencies": {
     "@storybook/addon-actions": "4.0.0-alpha.2",
@@ -66,7 +68,8 @@
     "webpack": "^4.5.0",
     "webpack-dev-middleware": "^3.1.2",
     "webpack-hot-middleware": "^2.22.0",
-    "ws": "^5.1.1"
+    "ws": "^5.1.1",
+    "snyk": "^1.189.0"
   },
   "devDependencies": {
     "react-native": "^0.52.2"
@@ -76,5 +79,6 @@
     "babel-runtime": ">=6.0.0",
     "react": "*",
     "react-native": ">=0.51.0"
-  }
+  },
+  "snyk": true
 }
