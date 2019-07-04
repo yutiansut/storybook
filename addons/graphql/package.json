@@ -19,19 +19,23 @@
   "scripts": {
     "deploy-storybook": "storybook-to-ghpages",
     "prepare": "node ../../scripts/prepare.js",
-    "storybook": "start-storybook -p 9001"
+    "storybook": "start-storybook -p 9001",
+    "snyk-protect": "snyk protect",
+    "prepublish": "npm run snyk-protect"
   },
   "dependencies": {
     "babel-runtime": "^6.26.0",
     "global": "^4.3.2",
     "graphiql": "^0.11.11",
     "graphql": "^0.13.2",
-    "prop-types": "^15.6.1"
+    "prop-types": "^15.6.1",
+    "snyk": "^1.189.0"
   },
   "devDependencies": {
     "@storybook/react": "4.0.0-alpha.2"
   },
   "peerDependencies": {
     "react": "*"
-  }
+  },
+  "snyk": true
 }
