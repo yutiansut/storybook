@@ -7,7 +7,7 @@
     "storybook": "start-storybook -p 9007"
   },
   "dependencies": {
-    "mithril": "^1.1.6"
+    "mithril": "^2.0.2"
   },
   "devDependencies": {
     "@storybook/addon-actions": "4.0.0-alpha.2",
