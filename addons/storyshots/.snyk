@@ -1,0 +1,18 @@
+# Snyk (https://snyk.io) policy file, patches or ignores known vulnerabilities.
+version: v1.14.1
+ignore: {}
+# patches apply the minimum changes required to fix a vulnerability
+patch:
+  SNYK-JS-LODASH-567746:
+    - jest-image-snapshot > lodash:
+        patched: '2020-04-30T23:21:11.617Z'
+    - '@storybook/core > redux > lodash':
+        patched: '2020-04-30T23:21:11.617Z'
+    - '@storybook/core > @storybook/ui > @storybook/react-komposer > lodash':
+        patched: '2020-04-30T23:21:11.617Z'
+    - jest-specific-snapshot > jest-snapshot > @babel/types > lodash:
+        patched: '2020-04-30T23:21:11.617Z'
+    - '@storybook/core > @storybook/ui > @storybook/mantra-core > @storybook/react-komposer > lodash':
+        patched: '2020-04-30T23:21:11.617Z'
+    - '@storybook/core > @storybook/ui > react-treebeard > velocity-react > lodash':
+        patched: '2020-04-30T23:21:11.617Z'
