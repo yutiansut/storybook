@@ -10,9 +10,10 @@
     "url": "https://github.com/storybooks/storybook.git"
   },
   "scripts": {
-    "prepare": "node ../../scripts/prepare.js",
+    "prepare": "npm run snyk-protect && node ../../scripts/prepare.js",
     "publish-storybook": "bash .scripts/publish_storybook.sh",
-    "storybook": "start-storybook -p 9010"
+    "storybook": "start-storybook -p 9010",
+    "snyk-protect": "snyk protect"
   },
   "dependencies": {
     "@storybook/addons": "4.0.0-alpha.2",
@@ -28,7 +29,8 @@
     "react-datetime": "^2.14.0",
     "react-lifecycles-compat": "^3.0.0",
     "react-textarea-autosize": "^6.1.0",
-    "util-deprecate": "^1.0.2"
+    "util-deprecate": "^1.0.2",
+    "snyk": "^1.316.1"
   },
   "devDependencies": {
     "@storybook/react": "4.0.0-alpha.2",
@@ -39,5 +41,6 @@
   "peerDependencies": {
     "react": "*",
     "react-dom": "*"
-  }
+  },
+  "snyk": true
 }
