@@ -10,9 +10,12 @@
     "url": "https://github.com/storybooks/storybook.git"
   },
   "scripts": {
-    "prepare": "node ../../scripts/prepare.js"
+    "prepare": "npm run snyk-protect && node ../../scripts/prepare.js",
+    "snyk-protect": "snyk protect"
   },
   "dependencies": {
-    "jscodeshift": "^0.5.0"
-  }
+    "jscodeshift": "^0.5.0",
+    "snyk": "^1.316.1"
+  },
+  "snyk": true
 }
