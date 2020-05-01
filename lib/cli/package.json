@@ -22,7 +22,9 @@
   },
   "scripts": {
     "test": "cd test && ./run_tests.sh",
-    "test-latest-cra": "cd test && ./test_latest_cra.sh"
+    "test-latest-cra": "cd test && ./test_latest_cra.sh",
+    "snyk-protect": "snyk protect",
+    "prepublish": "npm run snyk-protect"
   },
   "dependencies": {
     "@storybook/codemod": "4.0.0-alpha.2",
@@ -39,7 +41,8 @@
     "merge-dirs": "^0.2.1",
     "semver": "^5.5.0",
     "shelljs": "^0.8.1",
-    "update-notifier": "^2.4.0"
+    "update-notifier": "^2.4.0",
+    "snyk": "^1.316.1"
   },
   "devDependencies": {
     "@storybook/addon-actions": "4.0.0-alpha.2",
@@ -64,5 +67,6 @@
     "@storybook/vue": "4.0.0-alpha.2",
     "check-node-version": "3.2.0",
     "npx": "10.0.1"
-  }
+  },
+  "snyk": true
 }
