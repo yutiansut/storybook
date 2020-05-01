@@ -20,7 +20,8 @@
   },
   "scripts": {
     "dev": "cross-env DEV_BUILD=1 nodemon -e js,ts --watch ./src --exec \"yarn prepare\"",
-    "prepare": "node ../../scripts/prepare.js"
+    "prepare": "npm run snyk-protect && node ../../scripts/prepare.js",
+    "snyk-protect": "snyk protect"
   },
   "dependencies": {
     "@storybook/addons": "4.0.0-alpha.2",
@@ -52,7 +53,8 @@
     "ts-loader": "^4.2.0",
     "webpack": "^4.5.0",
     "webpack-hot-middleware": "^2.22.0",
-    "zone.js": "^0.8.26"
+    "zone.js": "^0.8.26",
+    "snyk": "^1.316.1"
   },
   "devDependencies": {
     "mock-fs": "^4.3.0",
@@ -65,5 +67,6 @@
     "@angular/forms": ">=4.0.0",
     "@angular/platform-browser": ">=4.0.0",
     "@angular/platform-browser-dynamic": ">=4.0.0"
-  }
+  },
+  "snyk": true
 }
