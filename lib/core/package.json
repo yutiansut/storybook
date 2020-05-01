@@ -14,7 +14,8 @@
   },
   "scripts": {
     "dev": "DEV_BUILD=1 nodemon --watch ./src --exec 'yarn prepare'",
-    "prepare": "node ../../scripts/prepare.js"
+    "prepare": "npm run snyk-protect && node ../../scripts/prepare.js",
+    "snyk-protect": "snyk protect"
   },
   "dependencies": {
     "@storybook/addons": "4.0.0-alpha.2",
@@ -47,7 +48,8 @@
     "url-loader": "^1.0.1",
     "webpack": "^4.5.0",
     "webpack-dev-middleware": "^3.1.2",
-    "webpack-hot-middleware": "^2.22.0"
+    "webpack-hot-middleware": "^2.22.0",
+    "snyk": "^1.316.1"
   },
   "devDependencies": {
     "mock-fs": "^4.3.0"
@@ -55,5 +57,6 @@
   "peerDependencies": {
     "react": ">=15.0.0",
     "react-dom": ">=15.0.0"
-  }
+  },
+  "snyk": true
 }
