@@ -20,7 +20,7 @@
     "@webcomponents/webcomponentsjs": "^1.2.0",
     "global": "^4.3.2",
     "polymer-webpack-loader": "^2.0.2",
-    "webpack": "^4.5.0"
+    "webpack": "^5.1.1"
   },
   "devDependencies": {
     "babel-core": "^6.26.0",
